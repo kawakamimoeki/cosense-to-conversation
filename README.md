@@ -25,7 +25,7 @@ npm install --save-dev cosense-to-conversation
 ### Running from command line
 
 ```bash
-npx ctoc "こんちは[user1.icon]\n    ようこそ！"
+npx cosense-to-conversation "こんちは[user1.icon]\n    ようこそ！"
 ```
 
 ### Running from Typescript/Javascript
@@ -70,7 +70,7 @@ console.log(output);
     author: "user1",
     content: "どうも",
     parent: null,
-    order: 2
+    order: 2,
   },
   {
     id: 4,
@@ -93,7 +93,7 @@ console.log(output);
     parent: 5,
     order: 1,
   },
-]
+];
 ```
 
 ## Contributing
