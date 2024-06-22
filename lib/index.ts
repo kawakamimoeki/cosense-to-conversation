@@ -37,7 +37,8 @@ function parse(text: string): Message[] {
       }
     } else {
       if (stack.length > 1 && stack[stack.length - 1].indent > indent) {
-        currentAuthor = stack.find((s) => s.indent === indent).author;
+        const sameIndent = stack.find((s) => s.indent === indent);
+        currentAuthor = sameIndent ? sameIndent.author : null;
       } else if (lastTopLevelAuthor && stack.length > 0) {
         currentAuthor = lastTopLevelAuthor;
       } else {
