@@ -1,6 +1,6 @@
 {
   "name": "cosense-to-conversation",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A command-line tool and TypeScript library for parsing Cosense(Scrapbox) formatted text into conversation JSON format.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
