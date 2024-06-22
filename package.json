@@ -4,9 +4,7 @@
   "description": "A command-line tool and TypeScript library for parsing Cosense(Scrapbox) formatted text into conversation JSON format.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "bin": {
-    "ctoc": "dist/index.js"
-  },
+  "bin": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
