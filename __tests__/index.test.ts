@@ -189,8 +189,8 @@ describe("Cosense to JSON Converter", () => {
 
   it("should handle author changes correctly", () => {
     const input = `[user1.icon]
-こんにちは
-はい、こんにちは
+  こんにちは
+  はい、こんにちは
 [user2.icon]
   どうも
   お元気ですか？
