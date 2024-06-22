@@ -7,7 +7,6 @@ interface Message {
   author: string | null;
   content: string;
   parent: number | null;
-  order: number;
 }
 
 function parse(text: string): Message[] {
@@ -37,7 +36,13 @@ function parse(text: string): Message[] {
         currentAuthor = authorMatch[1];
       }
     } else {
-      currentAuthor = null;
+      if (stack.length > 1 && stack[stack.length - 1].indent > indent) {
+        currentAuthor = stack.find((s) => s.indent === indent).author;
+      } else if (lastTopLevelAuthor && stack.length > 0) {
+        currentAuthor = lastTopLevelAuthor;
+      } else {
+        currentAuthor = null;
+      }
     }
     content = content.replace(/\[([^\]]+)\.icon\]/, "").trim();
 
@@ -45,8 +50,11 @@ function parse(text: string): Message[] {
       stack.pop();
     }
 
-    const parent = stack.length > 0 ? stack[stack.length - 1].id : null;
-    const order = messages.filter((m) => m.parent === parent).length + 1;
+    const parent = lastTopLevelAuthor
+      ? null
+      : stack.length > 0
+      ? stack[stack.length - 1].id
+      : null;
 
     // If no author is specified, use the parent's author
     if (!currentAuthor) {
@@ -57,10 +65,6 @@ function parse(text: string): Message[] {
       }
     }
 
-    if (parent === null && currentAuthor) {
-      lastTopLevelAuthor = currentAuthor;
-    }
-
     const author = currentAuthor;
 
     messages.push({
@@ -68,7 +72,6 @@ function parse(text: string): Message[] {
       author,
       content,
       parent,
-      order,
     });
 
     stack.push({ indent, id: currentId, author });

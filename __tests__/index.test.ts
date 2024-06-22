@@ -11,15 +11,14 @@ describe("Cosense to JSON Converter", () => {
       const result = parse(input);
 
       expect(result).toEqual([
-        { id: 1, author: "user1", content: "こんちは", parent: null, order: 1 },
-        { id: 2, author: "user1", content: "ようこそ！", parent: 1, order: 1 },
-        { id: 3, author: "user2", content: "どうも！", parent: 1, order: 2 },
+        { id: 1, author: "user1", content: "こんちは", parent: null },
+        { id: 2, author: "user1", content: "ようこそ！", parent: 1 },
+        { id: 3, author: "user2", content: "どうも！", parent: 1 },
         {
           id: 4,
           author: "user1",
           content: "はじめまして",
           parent: 3,
-          order: 1,
         },
       ]);
     });
@@ -32,7 +31,7 @@ describe("Cosense to JSON Converter", () => {
           author: null,
           content: "",
           id: 1,
-          order: 1,
+
           parent: null,
         },
       ]);
@@ -45,13 +44,12 @@ describe("Cosense to JSON Converter", () => {
       const result = parse(input);
 
       expect(result).toEqual([
-        { id: 1, author: null, content: "こんにちは", parent: null, order: 1 },
+        { id: 1, author: null, content: "こんにちは", parent: null },
         {
           id: 2,
           author: null,
           content: "はい、こんにちは",
           parent: 1,
-          order: 1,
         },
       ]);
     });
@@ -71,29 +69,25 @@ describe("Cosense to JSON Converter", () => {
           author: "user1",
           content: "こんにちは",
           parent: null,
-          order: 1,
         },
         {
           id: 2,
           author: "user1",
           content: "はい、こんにちは",
           parent: 1,
-          order: 1,
         },
         {
           id: 3,
           author: "user1",
           content: "お元気ですか？",
           parent: 2,
-          order: 1,
         },
-        { id: 4, author: "user2", content: "元気です", parent: 1, order: 2 },
+        { id: 4, author: "user2", content: "元気です", parent: 1 },
         {
           id: 5,
           author: "user2",
           content: "はい、元気です",
           parent: 4,
-          order: 1,
         },
       ]);
     });
@@ -114,36 +108,31 @@ describe("Cosense to JSON Converter", () => {
           author: "user1",
           content: "こんにちは",
           parent: null,
-          order: 1,
         },
         {
           id: 2,
           author: "user1",
           content: "はい、こんにちは",
           parent: 1,
-          order: 1,
         },
-        { id: 3, author: "user1", content: "どうも", parent: null, order: 2 },
+        { id: 3, author: "user1", content: "どうも", parent: null },
         {
           id: 4,
           author: "user2",
           content: "お元気ですか？",
           parent: 3,
-          order: 1,
         },
         {
           id: 5,
           author: "user1",
           content: "こんばんは",
           parent: null,
-          order: 3,
         },
         {
           id: 6,
           author: "user1",
           content: "おやすみなさい",
           parent: 5,
-          order: 1,
         },
       ]);
     });
@@ -161,29 +150,44 @@ describe("Cosense to JSON Converter", () => {
     const result = parse(input);
 
     expect(result).toEqual([
-      { id: 1, author: "user1", content: "こんにちは", parent: null, order: 1 },
+      { id: 1, author: "user1", content: "こんにちは", parent: null },
       {
         id: 2,
         author: "user1",
         content: "はい、こんにちは",
         parent: null,
-        order: 2,
       },
-      { id: 3, author: "user1", content: "どうも", parent: null, order: 3 },
+      { id: 3, author: "user1", content: "どうも", parent: null },
       {
         id: 4,
         author: "user2",
         content: "お元気ですか？",
         parent: null,
-        order: 4,
       },
       {
         id: 5,
         author: "user2",
         content: "はい、元気です",
         parent: null,
-        order: 5,
       },
+    ]);
+  });
+
+  it("should handle text with icon header that is not on top-level and after texts", () => {
+    const input = `[2021/06/22]
+[user1.icon]
+  おはよう`;
+
+    const result = parse(input);
+
+    expect(result).toEqual([
+      {
+        id: 1,
+        author: null,
+        content: "[2021/06/22]",
+        parent: null,
+      },
+      { id: 2, author: "user1", content: "おはよう", parent: null },
     ]);
   });
 
@@ -200,28 +204,25 @@ describe("Cosense to JSON Converter", () => {
     const result = parse(input);
 
     expect(result).toEqual([
-      { id: 1, author: "user1", content: "こんにちは", parent: null, order: 1 },
+      { id: 1, author: "user1", content: "こんにちは", parent: null },
       {
         id: 2,
         author: "user1",
         content: "はい、こんにちは",
         parent: null,
-        order: 2,
       },
-      { id: 3, author: "user2", content: "どうも", parent: null, order: 3 },
+      { id: 3, author: "user2", content: "どうも", parent: null },
       {
         id: 4,
         author: "user2",
         content: "お元気ですか？",
         parent: null,
-        order: 4,
       },
       {
         id: 5,
         author: "user1",
         content: "はい、元気です",
         parent: null,
-        order: 5,
       },
     ]);
   });
@@ -239,14 +240,12 @@ describe("Cosense to JSON Converter", () => {
             author: "user1",
             content: "こんちは",
             parent: null,
-            order: 1,
           },
           {
             id: 2,
             author: "user1",
             content: "ようこそ！",
             parent: 1,
-            order: 1,
           },
         ],
         null,
@@ -266,7 +265,6 @@ describe("Cosense to JSON Converter", () => {
             author: null,
             content: "",
             parent: null,
-            order: 1,
           },
         ],
         null,
