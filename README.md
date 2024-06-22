@@ -56,42 +56,36 @@ console.log(output);
     author: "user1",
     content: "こんにちは",
     parent: null,
-    order: 1,
   },
   {
     id: 2,
     author: "user1",
     content: "はい、こんにちは",
     parent: 1,
-    order: 1,
   },
   {
     id: 3,
     author: "user1",
     content: "どうも",
     parent: null,
-    order: 2,
   },
   {
     id: 4,
     author: "user2",
     content: "お元気ですか？",
     parent: 3,
-    order: 1,
   },
   {
     id: 5,
     author: "user1",
     content: "こんばんは",
     parent: null,
-    order: 3,
   },
   {
     id: 6,
     author: "user1",
     content: "おやすみなさい",
     parent: 5,
-    order: 1,
   },
 ];
 ```
