@@ -227,6 +227,16 @@ describe("Cosense to JSON Converter", () => {
     ]);
   });
 
+  it("should handle multiple icons", () => {
+    const input = `どうも[user1.icon*2]`;
+
+    const result = parse(input);
+
+    expect(result).toEqual([
+      { id: 1, author: "user1", content: "どうも", parent: null },
+    ]);
+  });
+
   describe("convert", () => {
     it("should convert Cosense dialogue to JSON string", () => {
       const input = `こんちは[user1.icon]

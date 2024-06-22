@@ -21,14 +21,14 @@ function parse(text: string): Message[] {
     const indent = line.length - line.trimStart().length;
     let content = line.trim();
 
-    let authorMatch = content.match(/^\[([^\]]+)\.icon\]$/);
+    let authorMatch = content.match(/^\[([^\]]+)\.icon(\*\d+)?\]$/);
     if (authorMatch) {
       currentAuthor = authorMatch[1];
       lastTopLevelAuthor = currentAuthor;
       return; // Skip this line as it's just an author declaration
     }
 
-    authorMatch = content.match(/\[([^\]]+)\.icon\]/);
+    authorMatch = content.match(/\[([^\]]+)\.icon(\*\d+)?\]/);
     if (authorMatch) {
       if (lastTopLevelAuthor && stack.length === 0) {
         currentAuthor = lastTopLevelAuthor;
@@ -45,7 +45,7 @@ function parse(text: string): Message[] {
         currentAuthor = null;
       }
     }
-    content = content.replace(/\[([^\]]+)\.icon\]/, "").trim();
+    content = content.replace(/\[([^\]]+)\.icon(\*\d+)?\]/, "").trim();
 
     while (stack.length > 0 && stack[stack.length - 1].indent >= indent) {
       stack.pop();
