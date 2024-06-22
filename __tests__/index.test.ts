@@ -192,10 +192,10 @@ describe("Cosense to JSON Converter", () => {
 こんにちは
 はい、こんにちは
 [user2.icon]
-どうも
-お元気ですか？
+  どうも
+  お元気ですか？
 [user1.icon]
-はい、元気です`;
+  はい、元気です`;
 
     const result = parse(input);
 
